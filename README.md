@@ -1,1 +1,1 @@
-# CoCAPI
+# CoC Manager
