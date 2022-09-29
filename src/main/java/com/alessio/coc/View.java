@@ -18,7 +18,9 @@ public class View extends JFrame {
 		setupView();
 		setupListener();
 		pack();
-		setSize(800, 900);
+		setSize(700, 700);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 

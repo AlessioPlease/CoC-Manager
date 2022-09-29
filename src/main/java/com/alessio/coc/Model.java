@@ -157,10 +157,9 @@ public class Model {
 			return null;
 		} else {
 			oldMembersTags.removeAll(newMembersTags);		// oldMembersTags now only contains members who are not in the clan anymore
-			System.out.println("These members left or were kicked out:");
+			System.out.println("Members who left have been detected and have been saved in a file");
 			for (Member oldMember: oldMembersInfo) {
 				if (oldMembersTags.contains(oldMember.getTag())) {
-					System.out.println(oldMember.getName());
 					membersWhoLeft.add(oldMember);
 				}
 			}
