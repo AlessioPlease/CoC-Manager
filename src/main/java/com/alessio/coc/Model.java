@@ -24,7 +24,14 @@ public class Model {
 
 		this.clanInfo = File.readClanInfoFromFile();
 		this.wars = File.readWarsInfoFromFile();
-//		this.clanInfo = fetchAndSaveClanMembersInfo();
+		System.out.println("File data extraction succeeded!");
+		System.out.println("Extracting data from server...");
+		/*
+		TODO:
+		 	If no war is going on (or if there is a CWL) fetchAndSaveWarInfo() will throw an exception.
+		 	Catch th exception.
+		*/
+		this.clanInfo = fetchAndSaveClanMembersInfo();
 //		this.wars = fetchAndSaveWarInfo();
 	}
 
