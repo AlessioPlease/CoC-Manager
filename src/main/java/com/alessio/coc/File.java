@@ -41,12 +41,8 @@ public class File {
 
 	public static void addMembersWhoLeftToFile(ArrayList<War> data) {
 		ArrayList<War> oldData = File.readMembersWhoLeftFromFile();
-		if (oldData != null) {
-			oldData.addAll(data);
-			File.saveMembersWhoLeftToFile(oldData);
-		} else {
-			File.saveMembersWhoLeftToFile(data);
-		}
+		oldData.addAll(data);
+		File.saveMembersWhoLeftToFile(oldData);
 	}
 
 	private static void saveMembersWhoLeftToFile(ArrayList<War> data) {
@@ -74,6 +70,10 @@ public class File {
 			Clan data = (Clan) ois.readObject();
 			ois.close();
 			return data;
+		} catch (EOFException e) {
+			System.out.println("ClanMembersInfo file is empty (EOFException)");
+			e.printStackTrace();
+			return new Clan(new ArrayList<>());
 		} catch (IOException e) {
 			System.out.println("Something went wrong while trying to read clan data from file (IOException)");
 			e.printStackTrace();
@@ -97,6 +97,10 @@ public class File {
 			ArrayList<War> data = (ArrayList<War>) ois.readObject();
 			ois.close();
 			return data;
+		} catch (EOFException e) {
+			System.out.println("WarInfo file is empty (EOFException)");
+			e.printStackTrace();
+			return new ArrayList<>();
 		} catch (IOException e) {
 			System.out.println("Something went wrong while trying to read war data from file (IOException)");
 			e.printStackTrace();
@@ -112,7 +116,7 @@ public class File {
 		String fileName = "MembersWhoLeft.txt";
 		if (fileDoesNotExist(fileName)) {
 			System.out.println("No file was found for " + fileName + ". It must be created first!");
-			return null;
+			return new ArrayList<>();
 		}
 		try {
 			FileInputStream fis = new FileInputStream(fileName);
@@ -121,6 +125,10 @@ public class File {
 			ArrayList<War> data = (ArrayList<War>) ois.readObject();
 			ois.close();
 			return data;
+		} catch (EOFException e) {
+			System.out.println("MembersWhoLeft file is empty (EOFException)");
+			e.printStackTrace();
+			return new ArrayList<>();
 		} catch (IOException e) {
 			System.out.println("Something went wrong while trying to read data of members who left from file (IOException)");
 			e.printStackTrace();

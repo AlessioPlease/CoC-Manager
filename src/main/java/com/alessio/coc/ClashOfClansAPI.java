@@ -144,6 +144,8 @@ public class ClashOfClansAPI {
 	/**
 	 * Extracts information about the ongoing war from the {@code String}
 	 * passed as argument and puts it in a {@code War} object.
+	 * If there is no war going on it returns a {@code War} object
+	 * containing only the war state.
 	 *
 	 * @param response The {@code String} object containing the response
 	 *                 of the request in JSON format.
@@ -160,6 +162,13 @@ public class ClashOfClansAPI {
 		JSONObject opponentClan = json.getJSONObject("opponent");
 		JSONArray opponentClanMembers = opponentClan.getJSONArray("members");
 		HashMap<String, Integer> mappedOpponents = mapOpponents(opponentClanMembers);
+
+		// If the clan is not in either of these states the JSON response is not
+		// going to contain any other war related information
+		String warState = json.getString("state");
+		if (!WarStates.validWarStates.contains(warState)) {
+			return new War(json.getString("state"));
+		}
 
 		ArrayList<WarMember> members = new ArrayList<>();
 
@@ -185,6 +194,7 @@ public class ClashOfClansAPI {
 		}
 
 		return new War(
+				json.getString("state"),
 				json.getString("preparationStartTime"),
 				json.getInt("teamSize"),
 				ourClan.getInt("attacks"),

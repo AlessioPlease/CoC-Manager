@@ -25,14 +25,12 @@ public class Model {
 		this.clanInfo = File.readClanInfoFromFile();
 		this.wars = File.readWarsInfoFromFile();
 		System.out.println("File data extraction succeeded!");
-		System.out.println("Extracting data from server...");
-		/*
-		TODO:
-		 	If no war is going on (or if there is a CWL) fetchAndSaveWarInfo() will throw an exception.
-		 	Catch th exception.
-		*/
+		
+		System.out.println("Extracting clan data from server...");
 		this.clanInfo = fetchAndSaveClanMembersInfo();
-//		this.wars = fetchAndSaveWarInfo();
+		System.out.println("Extracting war data from server...");
+		this.wars = fetchAndSaveWarInfo();
+		System.out.println("Fetch completed!");
 	}
 
 	/**
@@ -57,6 +55,8 @@ public class Model {
 
 	/**
 	 * Updates information about the ongoing war.
+	 * Makes sure that the war object received contains a valid war (that is if the clan is
+	 * either in preparation, in war, or the war has just ended).
 	 * Checks if there are new members in the current war that are not present in che clan
 	 * members information. If so it proceeds to {@code fetchAndSaveClanMembersInfo()}.
 	 * It finally adds the current war to the wars already saved in the file.
@@ -68,6 +68,14 @@ public class Model {
 		ClashOfClansAPI coc = this.api;
 		ArrayList<War> wars = File.readWarsInfoFromFile();
 		coc.updateWarInfo();
+
+		String warState = coc.getWarInfo().getWarState();
+		if (!WarStates.validWarStates.contains(warState)) {
+			// Skips all the rest since the war received is not valid.
+			System.out.println("Clan is not currently in war and didn't do any war recently.");
+			return wars;
+		}
+
 		if (areThereNewMembers(coc.getWarInfo().getMembers())) {
 			fetchAndSaveClanMembersInfo();
 		}
@@ -118,21 +126,12 @@ public class Model {
 					if (member.getTag().equals(warMember.getTag())) {
 						performanceInfo.add(new War(
 								war.getPreparationStartTime(),
-								0,
-								0,
-								0,
-								0,
-								0d,
 								new ArrayList<>(List.of(new WarMember(warMember.getName(), warMember.getTag(), warMember.getWarPosition(), warMember.getAttacks())))));
 					}
 				}
 			}
 		}
-		if (performanceInfo.size() != 0) {
-			return performanceInfo;
-		} else {
-			return null;
-		}
+		return performanceInfo;
 	}
 
 	/**
@@ -164,7 +163,7 @@ public class Model {
 			return null;
 		} else {
 			oldMembersTags.removeAll(newMembersTags);		// oldMembersTags now only contains members who are not in the clan anymore
-			System.out.println("Members who left have been detected and have been saved in a file");
+			System.out.println("Members who left have been detected and will be saved in a file");
 			for (Member oldMember: oldMembersInfo) {
 				if (oldMembersTags.contains(oldMember.getTag())) {
 					membersWhoLeft.add(oldMember);
