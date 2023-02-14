@@ -4,31 +4,31 @@ import java.io.Serializable;
 
 public class Member implements Serializable {
 
-	private String name;
-	private Integer donated;
-	private Integer received;
-	private Integer attacksWon;
-	private Integer th;
-	private String warPreference;
-	private String role;
-	private Integer exp;
-	private Integer trophies;
-	private Integer warStars;
-	private Integer clanRank;
-	private String tag;
+	protected String name;
+	protected Integer th;
+	protected Integer exp;
+	protected Integer trophies;
+	protected Integer attacksWon;
+	protected Integer donated;
+	protected Integer received;
+	protected String warPreference;
+	protected Integer totalWarStars;
+	protected Integer clanRank;
+	protected String role;
+	protected String tag;
 
-	public Member(String name, Integer donated, Integer received, Integer attacksWon, Integer th, String warPreference, String role, Integer exp, Integer trophies, Integer warStars, Integer clanRank, String tag) {
+	public Member(String name, Integer th, Integer exp, Integer trophies, Integer attacksWon, Integer donated, Integer received, String warPreference, Integer totalWarStars, Integer clanRank, String role, String tag) {
 		this.name = name;
-		this.donated = donated;
-		this.received = received;
-		this.attacksWon = attacksWon;
 		this.th = th;
-		this.warPreference = warPreference;
-		this.role = role;
 		this.exp = exp;
 		this.trophies = trophies;
-		this.warStars = warStars;
+		this.attacksWon = attacksWon;
+		this.donated = donated;
+		this.received = received;
+		this.warPreference = warPreference;
+		this.totalWarStars = totalWarStars;
 		this.clanRank = clanRank;
+		this.role = role;
 		this.tag = tag;
 	}
 
@@ -40,52 +40,12 @@ public class Member implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getDonated() {
-		return donated;
-	}
-
-	public void setDonated(Integer donated) {
-		this.donated = donated;
-	}
-
-	public Integer getReceived() {
-		return received;
-	}
-
-	public void setReceived(Integer received) {
-		this.received = received;
-	}
-
-	public Integer getAttacksWon() {
-		return attacksWon;
-	}
-
-	public void setAttacksWon(Integer attacksWon) {
-		this.attacksWon = attacksWon;
-	}
-
 	public Integer getTh() {
 		return th;
 	}
 
 	public void setTh(Integer th) {
 		this.th = th;
-	}
-
-	public String getWarPreference() {
-		return warPreference;
-	}
-
-	public void setWarPreference(String warPreference) {
-		this.warPreference = warPreference;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
 	}
 
 	public Integer getExp() {
@@ -104,12 +64,44 @@ public class Member implements Serializable {
 		this.trophies = trophies;
 	}
 
-	public Integer getWarStars() {
-		return warStars;
+	public Integer getAttacksWon() {
+		return attacksWon;
 	}
 
-	public void setWarStars(Integer warStars) {
-		this.warStars = warStars;
+	public void setAttacksWon(Integer attacksWon) {
+		this.attacksWon = attacksWon;
+	}
+
+	public Integer getDonated() {
+		return donated;
+	}
+
+	public void setDonated(Integer donated) {
+		this.donated = donated;
+	}
+
+	public Integer getReceived() {
+		return received;
+	}
+
+	public void setReceived(Integer received) {
+		this.received = received;
+	}
+
+	public String getWarPreference() {
+		return warPreference;
+	}
+
+	public void setWarPreference(String warPreference) {
+		this.warPreference = warPreference;
+	}
+
+	public Integer getTotalWarStars() {
+		return totalWarStars;
+	}
+
+	public void setTotalWarStars(Integer totalWarStars) {
+		this.totalWarStars = totalWarStars;
 	}
 
 	public Integer getClanRank() {
@@ -118,6 +110,14 @@ public class Member implements Serializable {
 
 	public void setClanRank(Integer clanRank) {
 		this.clanRank = clanRank;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public String getTag() {
@@ -130,7 +130,7 @@ public class Member implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("%-16s %5d %5d %3d %2d %-3s %-8s %3d %4d %4d☆ #%2d %s",
-				name, donated, received, attacksWon, th, warPreference, role, exp, trophies, warStars, clanRank, tag);
+		return String.format("%-16s %2d %3d %4d🏆 %4d %5d %5d %-3s %4d☆ #%2d %-8s %s",
+				name, th, exp, trophies, attacksWon, donated, received, warPreference, totalWarStars, clanRank, role, tag);
 	}
 }

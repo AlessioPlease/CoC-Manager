@@ -70,16 +70,16 @@ public class ClashOfClansAPI {
 
 			Member member = new Member(
 					items.getJSONObject(i).getString("name"),
-					items.getJSONObject(i).getInt("donations"),
-					items.getJSONObject(i).getInt("donationsReceived"),
-					Integer.valueOf(otherInfo.get("attackWins")),
 					Integer.valueOf(otherInfo.get("townHallLevel")),
-					otherInfo.get("warPreference"),
-					items.getJSONObject(i).getString("role"),
 					items.getJSONObject(i).getInt("expLevel"),
 					items.getJSONObject(i).getInt("trophies"),
+					Integer.valueOf(otherInfo.get("attackWins")),
+					items.getJSONObject(i).getInt("donations"),
+					items.getJSONObject(i).getInt("donationsReceived"),
+					otherInfo.get("warPreference"),
 					Integer.valueOf(otherInfo.get("warStars")),
 					items.getJSONObject(i).getInt("clanRank"),
+					items.getJSONObject(i).getString("role"),
 					items.getJSONObject(i).getString("tag")
 			);
 			members.add(member);

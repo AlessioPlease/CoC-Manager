@@ -2,77 +2,27 @@ package com.alessio.coc.models;
 
 import java.util.ArrayList;
 
-public class MemberListRow {
+public class MemberListRow extends Member {
 
-	private String name;
-	private Integer th;
-	private Integer exp;
-	private Integer trophies;
-	private Integer attacksWon;
-	private Integer donated;
-	private Integer received;
+	/*
+	name
+	th
+	exp
+	trophies
+	attacksWon
+	donated
+	received
 
-	private String warPreference;
-	private Integer totalWarStars;
+	warPreference
+	totalWarStars
+	lastWarsPerformance
+	tag
+	 */
 	private ArrayList<Attack> lastWarsPerformance;
-	private String tag;
 
-	public MemberListRow(String name, Integer th, Integer exp, Integer trophies, Integer attacksWon, Integer donated, Integer received, String warPreference, Integer totalWarStars, ArrayList<Attack> lastWarsPerformance, String tag) {
-		this.name = name;
-		this.th = th;
-		this.exp = exp;
-		this.trophies = trophies;
-		this.attacksWon = attacksWon;
-		this.donated = donated;
-		this.received = received;
-		this.warPreference = warPreference;
-		this.totalWarStars = totalWarStars;
+	public MemberListRow(String name, Integer th, Integer exp, Integer trophies, Integer attacksWon, Integer donated, Integer received, String warPreference, Integer totalWarStars, Integer clanRank, String role, String tag, ArrayList<Attack> lastWarsPerformance) {
+		super(name, th, exp, trophies, attacksWon, donated, received, warPreference, totalWarStars, clanRank, role, tag);
 		this.lastWarsPerformance = lastWarsPerformance;
-		this.tag = tag;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Integer getTh() {
-		return th;
-	}
-
-	public Integer getExp() {
-		return exp;
-	}
-
-	public Integer getTrophies() {
-		return trophies;
-	}
-
-	public Integer getAttacksWon() {
-		return attacksWon;
-	}
-
-	public Integer getDonated() {
-		return donated;
-	}
-
-	public Integer getReceived() {
-		return received;
-	}
-
-	public String getWarPreference() {
-		return warPreference;
-	}
-
-	public Integer getTotalWarStars() {
-		return totalWarStars;
-	}
-
-	public ArrayList<Attack> getAttacks() {
-		return lastWarsPerformance;
-	}
-
-	public String getTag() {
-		return tag;
 	}
 
 	@Override
