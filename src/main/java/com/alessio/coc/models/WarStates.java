@@ -15,6 +15,5 @@ public final class WarStates {
 	public static final String accessDenied = "accessDenied";
 	public static final HashSet<String> notValidWarStates = new HashSet<>(Arrays.asList(notInWar, notFound, accessDenied));
 
-
 	private WarStates() {}
 }
