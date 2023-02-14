@@ -17,8 +17,6 @@ public class View extends JFrame {
 
 		setupView();
 		setupListener();
-		pack();
-		setSize(700, 700);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -38,6 +36,9 @@ public class View extends JFrame {
 		scrollView.getVerticalScrollBar().setUnitIncrement(3);
 		scrollView.getHorizontalScrollBar().setUnitIncrement(2);
 		add(scrollView);
+
+		pack();
+		setSize(700, 700);
 	}
 
 	private void setupListener() {
