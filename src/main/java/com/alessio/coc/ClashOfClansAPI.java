@@ -157,11 +157,6 @@ public class ClashOfClansAPI {
 	 */
 	private War extractWarInfo(String response) {
 		JSONObject json = new JSONObject(response);
-		JSONObject ourClan = json.getJSONObject("clan");
-		JSONArray ourClanMembers = ourClan.getJSONArray("members");
-		JSONObject opponentClan = json.getJSONObject("opponent");
-		JSONArray opponentClanMembers = opponentClan.getJSONArray("members");
-		HashMap<String, Integer> mappedOpponents = mapOpponents(opponentClanMembers);
 
 		// If the clan is not in either of these states the JSON response is not
 		// going to contain any other war related information
@@ -169,6 +164,12 @@ public class ClashOfClansAPI {
 		if (!WarStates.validWarStates.contains(warState)) {
 			return new War(json.getString("state"));
 		}
+
+		JSONObject ourClan = json.getJSONObject("clan");
+		JSONArray ourClanMembers = ourClan.getJSONArray("members");
+		JSONObject opponentClan = json.getJSONObject("opponent");
+		JSONArray opponentClanMembers = opponentClan.getJSONArray("members");
+		HashMap<String, Integer> mappedOpponents = mapOpponents(opponentClanMembers);
 
 		ArrayList<WarMember> members = new ArrayList<>();
 
