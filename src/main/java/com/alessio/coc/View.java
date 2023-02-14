@@ -47,7 +47,7 @@ public class View extends JFrame {
 	}
 
 	public void keyTrigger() {
-		setLabel(this.controller.searchMemberByName(this.textField.getText()));
+		setLabel(this.controller.searchMembersByName(this.textField.getText()));
 	}
 
 	public void setLabel(String text) {
