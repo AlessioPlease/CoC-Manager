@@ -24,14 +24,14 @@ public class Model {
 
 		this.clanInfo = File.readClanInfoFromFile();
 		this.wars = File.readWarsInfoFromFile();
-		printClanInfo(clanInfo);
 		System.out.println("File data extraction succeeded!");
-		
+		/*
 		System.out.println("Extracting clan data from server...");
 		this.clanInfo = fetchAndSaveClanMembersInfo();
 		System.out.println("Extracting war data from server...");
 		this.wars = fetchAndSaveWarInfo();
 		System.out.println("Fetch completed!");
+		 */
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class Model {
 	 *
 	 * @return A {@code Clan} object containing information about the clan members.
 	 */
-	public Clan fetchAndSaveClanMembersInfo() {
+	private Clan fetchAndSaveClanMembersInfo() {
 		ClashOfClansAPI coc = this.api;
 		coc.updateClanInfo();
 		ArrayList<Member> membersWhoLeft = membersWhoLeft(coc.getClanInfo().getMembers());
@@ -65,7 +65,7 @@ public class Model {
 	 * @return An {@code ArrayList<War>} object containing information about
 	 *         the ongoing war.
 	 */
-	public ArrayList<War> fetchAndSaveWarInfo() {
+	private ArrayList<War> fetchAndSaveWarInfo() {
 		ClashOfClansAPI coc = this.api;
 		ArrayList<War> wars = File.readWarsInfoFromFile();
 		coc.updateWarInfo();
@@ -204,41 +204,41 @@ public class Model {
 
 	/**
 	 * Searches for clan members using their names.
-	 * Returns a list of the members' names containing the {@code String} in the parameter.
 	 *
 	 * @param substring The {@code String} object containing the text input
 	 *                  from the user.
 	 *
-	 * @return A {@code String} object formatted to be easily readable in the
-	 *         {@code JLabel} it will be showing in.
+	 * @return An {@code ArrayList<Member>} object containing
+	 * the list of the members whose name matches the {@code String} received as parameter.
 	 */
-	public String searchMemberByName(String substring) {
+	public ArrayList<Member> searchMembersByName(String substring) {
 		if (clanInfo == null) {
-			return "";
+			return null;
 		}
-		ArrayList<String> matchingMembers = clanInfo.getMembers().stream()
-				.map(Member::getName)									// Filters based on the condition
-				.filter(memberName -> memberName.contains(substring))	// Gets the name for each member
-				.collect(Collectors.toCollection(ArrayList::new));		// Makes a list for the names
+		ArrayList<Member> matchingMembers = clanInfo.getMembers().stream()
+				.filter(member -> member.getName().contains(substring))	// Filters based on the condition
+				.collect(Collectors.toCollection(ArrayList::new));		// Makes a list of the members
 
-		return formatListForLabel(matchingMembers);
+		return matchingMembers;
 	}
 
 	/**
-	 * Puts the content of the {@code ArrayList<String>} parameter in a formatted {@code String}.
+	 * Searches for clan members using their names.
 	 *
-	 * @param list The {@code ArrayList<String>} object containing a list of names.
+	 * @param substring The {@code String} object containing the text input
+	 *                  from the user.
 	 *
-	 * @return A {@code String} object formatted to be easily readable in the
-	 *         {@code JLabel} it will be showing in.
+	 * @return An {@code ArrayList<String>} object containing only names of members
+	 * that match the {@code String} received as parameter.
 	 */
-	private String formatListForLabel(ArrayList<String> list) {
-		StringBuilder stringBuilder = new StringBuilder();
-
-		stringBuilder.append("<html>");
-		list.forEach(string -> stringBuilder.append(string).append("<br/>"));
-		stringBuilder.append("</html>");
-		return stringBuilder.toString();
+	public ArrayList<String> searchNamesOnly(String substring) {
+		if (clanInfo == null) {
+			return null;
+		}
+		return clanInfo.getMembers().stream()
+				.map(Member::getName)									// Gets the name for each member
+				.filter(memberName -> memberName.contains(substring))	// Filters based on the condition
+				.collect(Collectors.toCollection(ArrayList::new));		// Makes a list for the names
 	}
 
 	/**
@@ -275,5 +275,13 @@ public class Model {
 				System.out.println();
 			}
 		}
+	}
+
+	public Clan getClanInfo() {
+		return clanInfo;
+	}
+
+	public ArrayList<War> getWars() {
+		return wars;
 	}
 }
