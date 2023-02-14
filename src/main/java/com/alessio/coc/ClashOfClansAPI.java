@@ -18,20 +18,15 @@ import java.util.*;
 
 public class ClashOfClansAPI {
 
-	private final Constants constants;
 	private Clan clanInfo;
 	private War warInfo;
 	private Instant lastClanInfoUpdate = Instant.parse("2000-01-01T10:15:30.00Z");
 	private Instant lastWarInfoUpdate = Instant.parse("2000-01-01T10:15:30.00Z");
 
 	/**
-	 * Initializes the class' {@code constants} object
-	 * with the constants parameter passed as argument.
 	 *
-	 * @param constants Constants object.
 	 */
-	public ClashOfClansAPI(Constants constants) {
-		this.constants = constants;
+	public ClashOfClansAPI() {
 	}
 
 	/**
@@ -42,7 +37,7 @@ public class ClashOfClansAPI {
 	 *         of the request in JSON format.
 	 */
 	private String requestClanInfo() {
-		String url = "https://api.clashofclans.com/v1/clans/%23" + constants.getClanTag() + "/members";
+		String url = "https://api.clashofclans.com/v1/clans/%23" + Constants.getClanTag() + "/members";
 		String method = "GET";
 
 		return getResponse(Objects.requireNonNull(buildRequest(url, method)));
@@ -135,7 +130,7 @@ public class ClashOfClansAPI {
 	 *         of the request in JSON format.
 	 */
 	private String requestWarInfo() {
-		String url = "https://api.clashofclans.com/v1/clans/%23" + constants.getClanTag() + "/currentwar";
+		String url = "https://api.clashofclans.com/v1/clans/%23" + Constants.getClanTag() + "/currentwar";
 		String method = "GET";
 
 		return getResponse(Objects.requireNonNull(buildRequest(url, method)));
@@ -283,7 +278,7 @@ public class ClashOfClansAPI {
 			URL url = new URL(urlString);
 			HttpURLConnection req = (HttpURLConnection) url.openConnection();
 			req.setRequestMethod(method);
-			req.setRequestProperty("Authorization", constants.getAuthToken());
+			req.setRequestProperty("Authorization", Constants.getAuthToken());
 			return req;
 		} catch (IOException e) {
 			System.out.println("Something went wrong while building the request");
@@ -345,7 +340,7 @@ public class ClashOfClansAPI {
 
 	/**
 	 * Compares the {@code Instant date} received as parameter with the current time
-	 * and checks if it is older than {@code constants.getUpdateInterval()}.
+	 * and checks if it is older than {@code Constants.getUpdateInterval()}.
 	 *
 	 * @param date The time of the last update.
 	 *
@@ -354,7 +349,7 @@ public class ClashOfClansAPI {
 	private boolean updateIsOld(Instant date) {
 		Duration timeElapsed = Duration.between(date, Instant.now());
 
-		return timeElapsed.toMinutes() > constants.getUpdateInterval();
+		return timeElapsed.toMinutes() > Constants.getAutoUpdateInterval();
 	}
 
 	public Clan getClanInfo() {
