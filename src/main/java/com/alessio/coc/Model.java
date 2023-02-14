@@ -24,6 +24,7 @@ public class Model {
 
 		this.clanInfo = File.readClanInfoFromFile();
 		this.wars = File.readWarsInfoFromFile();
+		printClanInfo(clanInfo);
 		System.out.println("File data extraction succeeded!");
 		
 		System.out.println("Extracting clan data from server...");
@@ -216,8 +217,8 @@ public class Model {
 			return "";
 		}
 		ArrayList<String> matchingMembers = clanInfo.getMembers().stream()
-				.filter(member -> member.getName().contains(substring))	// Filters based on the condition
-				.map(Member::getName)									// Gets the name for each member
+				.map(Member::getName)									// Filters based on the condition
+				.filter(memberName -> memberName.contains(substring))	// Gets the name for each member
 				.collect(Collectors.toCollection(ArrayList::new));		// Makes a list for the names
 
 		return formatListForLabel(matchingMembers);
