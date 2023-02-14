@@ -22,7 +22,7 @@ public class ClashOfClansAPI {
 	private Clan clanInfo;
 	private War warInfo;
 	private Instant lastClanInfoUpdate = Instant.parse("2000-01-01T10:15:30.00Z");
-	private Instant warInfoUpdate = Instant.parse("2000-01-01T10:15:30.00Z");
+	private Instant lastWarInfoUpdate = Instant.parse("2000-01-01T10:15:30.00Z");
 
 	/**
 	 * Initializes the class' {@code constants} object
@@ -337,9 +337,9 @@ public class ClashOfClansAPI {
 	 * It then resets the last update time.
 	 */
 	public void updateWarInfo() {
-		if (updateIsOld(warInfoUpdate)) {
+		if (updateIsOld(lastWarInfoUpdate)) {
 			this.warInfo = extractWarInfo(requestWarInfo());
-			warInfoUpdate = Instant.now();
+			lastWarInfoUpdate = Instant.now();
 		}
 	}
 
