@@ -29,7 +29,7 @@ public class MemberListRow extends Member {
 	public String toString() {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%-16s %2d %3d %4d🏆 %4d %5d %5d %-3s %4d ",
+		sb.append(String.format("%-16s %2d %3d %4d🏆 %4d⚔️ %5d↑ %5d↓ %-3s %4d ",
 				name, th, exp, trophies, attacksWon, donated, received, warPreference, totalWarStars));
 
 		if (lastWarsPerformance != null && lastWarsPerformance.size() > 0) {
