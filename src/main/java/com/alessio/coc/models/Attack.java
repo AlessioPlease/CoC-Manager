@@ -34,10 +34,10 @@ public class Attack implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("[%2d°: %3d %2d☆ %4d%s]", order, opponentPosition, attackStars, destructionPercentage, "%%");
+		return String.format("[%2d°: #%3d %2d☆ %4d%s]", order, opponentPosition, attackStars, destructionPercentage, "%");
 	}
 
 	public String toString2() {
-		return String.format("[%2d☆ %4d%s]", attackStars, destructionPercentage, "%%");
+		return String.format("[%1d☆ %3d%s]", attackStars, destructionPercentage, "%");
 	}
 }
