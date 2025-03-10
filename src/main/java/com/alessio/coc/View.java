@@ -14,9 +14,9 @@ public class View extends JFrame {
 		super("CoCAPI");
 		setLayout(new GridLayout(2, 2, 0, 20));
 		/*
-		TODO
-		https://docs.oracle.com/javase/tutorial/uiswing/layout/visual.html
-		https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
+			TODO
+			https://docs.oracle.com/javase/tutorial/uiswing/layout/visual.html
+			https://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html
 		 */
 		this.controller = controller;
 
